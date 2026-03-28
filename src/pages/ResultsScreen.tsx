@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ScanFace, PersonStanding, Salad, Palette, Footprints, Shirt, Scissors, Sparkles, Share2, Bookmark } from 'lucide-react';
+import { ArrowLeft, ScanFace, PersonStanding, Salad, Palette, Footprints, Shirt, Scissors, Sparkles, Share2, Bookmark, PartyPopper, Briefcase, Coffee } from 'lucide-react';
 import type { FullAnalysis } from '@/lib/analysis';
 import { toast } from 'sonner';
 
@@ -102,7 +102,7 @@ const ResultsScreen = () => {
         {results.body && (
           <>
             <motion.div variants={item} className="section-card">
-              <SectionTitle icon={PersonStanding} title="Body Analysis" />
+              <SectionTitle icon={PersonStanding} title="Outfit Recommendation" />
               <div className="flex gap-4 mt-3">
                 <div className="glass-card px-4 py-2 text-center flex-1">
                   <p className="text-xs text-muted-foreground">Type</p>
@@ -143,6 +143,32 @@ const ResultsScreen = () => {
                 ))}
               </div>
             </motion.div>
+
+            {/* Occasion Outfits */}
+            {results.body.occasions?.map((occ, i) => {
+              const occasionIcon = occ.occasion === 'Party' ? PartyPopper : occ.occasion === 'Formal' ? Briefcase : Coffee;
+              return (
+                <motion.div key={i} variants={item} className="section-card">
+                  <SectionTitle icon={occasionIcon} title={`${occ.occasion} Outfit`} />
+                  <div className="mt-3 space-y-2">
+                    <div className="flex items-center gap-2 text-sm text-secondary-foreground">
+                      <Shirt size={14} className="text-primary shrink-0" /> {occ.top}
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-secondary-foreground">
+                      <Shirt size={14} className="text-primary shrink-0" /> {occ.bottom}
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-secondary-foreground">
+                      <Footprints size={14} className="text-primary shrink-0" /> {occ.footwear}
+                    </div>
+                    <div className="flex gap-2 mt-2">
+                      {occ.colors.map((c, j) => (
+                        <span key={j} className="glass-card px-2 py-1 text-xs text-secondary-foreground">{c}</span>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
           </>
         )}
 
