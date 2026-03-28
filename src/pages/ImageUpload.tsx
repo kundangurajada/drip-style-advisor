@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Camera, ImagePlus, ArrowLeft, X, Loader2, ScanFace, PersonStanding } from 'lucide-react';
+import { Camera, ImagePlus, ArrowLeft, X, Loader2, ScanFace, PersonStanding, PartyPopper, Briefcase, Coffee, Check } from 'lucide-react';
 import type { FeatureType } from './FeaturesMenu';
 import type { Gender, FullAnalysis } from '@/lib/analysis';
 import { analyzeFace, analyzeBody, analyzeDiet, fullAnalysis, simulateAnalysis } from '@/lib/analysis';
@@ -16,11 +16,25 @@ const ImageUpload = () => {
   const [bodyImage, setBodyImage] = useState<string | null>(null);
   const [analyzing, setAnalyzing] = useState(false);
   const [uploadTarget, setUploadTarget] = useState<'face' | 'body'>('face');
+  const [selectedOccasions, setSelectedOccasions] = useState<string[]>([]);
 
   const feat = feature as FeatureType;
   const g = gender as Gender;
   const needsFace = feat === 'face' || feat === 'drip';
   const needsBody = feat === 'body' || feat === 'diet' || feat === 'drip';
+  const showOccasions = feat === 'body' || feat === 'drip';
+
+  const occasions = [
+    { id: 'casual', label: 'Casual', icon: Coffee },
+    { id: 'formal', label: 'Formal', icon: Briefcase },
+    { id: 'party', label: 'Party', icon: PartyPopper },
+  ];
+
+  const toggleOccasion = (id: string) => {
+    setSelectedOccasions(prev =>
+      prev.includes(id) ? prev.filter(o => o !== id) : [...prev, id]
+    );
+  };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, target: 'face' | 'body') => {
     const file = e.target.files?.[0];
@@ -35,8 +49,9 @@ const ImageUpload = () => {
   };
 
   const canSubmit = () => {
-    if (feat === 'drip') return faceImage && bodyImage;
+    if (feat === 'drip') return faceImage && bodyImage && selectedOccasions.length > 0;
     if (feat === 'face') return faceImage;
+    if (feat === 'body') return bodyImage && selectedOccasions.length > 0;
     return bodyImage;
   };
 
@@ -45,12 +60,12 @@ const ImageUpload = () => {
     try {
       let result: FullAnalysis;
       if (feat === 'drip') {
-        result = await simulateAnalysis(() => fullAnalysis(g), 3500);
+        result = await simulateAnalysis(() => fullAnalysis(g, selectedOccasions), 3500);
       } else if (feat === 'face') {
         const face = await simulateAnalysis(() => analyzeFace(g), 2500);
         result = { face };
       } else if (feat === 'body') {
-        const body = await simulateAnalysis(() => analyzeBody(g), 2500);
+        const body = await simulateAnalysis(() => analyzeBody(g, selectedOccasions), 2500);
         result = { body };
       } else {
         const body = await simulateAnalysis(() => analyzeBody(g), 1500);
@@ -64,6 +79,7 @@ const ImageUpload = () => {
       sessionStorage.setItem('drip-body-image', bodyImage || '');
       sessionStorage.setItem('drip-feature', feat);
       sessionStorage.setItem('drip-gender', g);
+      sessionStorage.setItem('drip-occasions', JSON.stringify(selectedOccasions));
       navigate('/results');
     } catch {
       setAnalyzing(false);
@@ -135,6 +151,41 @@ const ImageUpload = () => {
           />
         )}
       </div>
+
+      {/* Occasion selector - shown after image is uploaded */}
+      {showOccasions && bodyImage && (
+        <motion.div
+          className="mt-6"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
+          <h3 className="font-semibold text-foreground mb-1">Select Occasions</h3>
+          <p className="text-sm text-muted-foreground mb-4">Choose the occasions you want outfit recommendations for</p>
+          <div className="flex gap-3">
+            {occasions.map((occ) => {
+              const selected = selectedOccasions.includes(occ.id);
+              return (
+                <motion.button
+                  key={occ.id}
+                  onClick={() => toggleOccasion(occ.id)}
+                  className={`flex-1 glass-card p-4 flex flex-col items-center gap-2 cursor-pointer transition-all duration-200 ${
+                    selected ? 'border-primary/60 bg-primary/10' : ''
+                  }`}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${
+                    selected ? 'bg-primary/20' : 'bg-secondary'
+                  }`}>
+                    {selected ? <Check className="text-primary" size={20} /> : <occ.icon className="text-muted-foreground" size={20} />}
+                  </div>
+                  <span className={`text-sm font-medium ${selected ? 'text-primary' : 'text-muted-foreground'}`}>{occ.label}</span>
+                </motion.button>
+              );
+            })}
+          </div>
+        </motion.div>
+      )}
 
       {/* Analyze button */}
       <motion.div className="mt-8" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
