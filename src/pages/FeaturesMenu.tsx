@@ -22,8 +22,8 @@ const features: Feature[] = [
   },
   {
     id: 'body',
-    title: 'Body Analysis',
-    description: 'Analyze body type for perfect outfit recommendations',
+    title: 'Outfit Recommendation',
+    description: 'Get outfit suggestions for parties, formal events & casual wear',
     icon: PersonStanding,
     color: 'from-emerald-500/20 to-teal-500/10',
   },
