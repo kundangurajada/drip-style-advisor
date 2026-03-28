@@ -173,13 +173,42 @@ export function analyzeBody(gender: Gender): BodyAnalysisResult {
   const bt = pick(bodyTypes);
   const bs = pick(bodyShapes);
   const g = gender === 'male' ? 'male' : 'female';
+  const tops = topsMap[bt][g];
+  const bottoms = bottomsMap[bt][g];
+  const fw = footwearMap[bt];
+
+  const occasions: OccasionOutfit[] = [
+    {
+      occasion: 'Casual',
+      top: pick(tops),
+      bottom: pick(bottoms),
+      footwear: pick(fw),
+      colors: pick(colorCombos),
+    },
+    {
+      occasion: 'Formal',
+      top: gender === 'male' ? 'Tailored Suit Jacket' : 'Structured Blazer',
+      bottom: gender === 'male' ? 'Dress Trousers' : 'Pencil Skirt',
+      footwear: gender === 'male' ? 'Oxford Shoes' : 'Pointed Heels',
+      colors: ['Black', 'Navy', 'White'],
+    },
+    {
+      occasion: 'Party',
+      top: gender === 'male' ? 'Satin Shirt' : 'Sequin Top',
+      bottom: gender === 'male' ? 'Slim Black Jeans' : 'Mini Skirt',
+      footwear: gender === 'male' ? 'Chelsea Boots' : 'Strappy Heels',
+      colors: ['Gold', 'Black', 'Burgundy'],
+    },
+  ];
+
   return {
     bodyType: bt,
     bodyShape: bs,
-    tops: topsMap[bt][g],
-    bottoms: bottomsMap[bt][g],
-    footwear: footwearMap[bt],
+    tops,
+    bottoms,
+    footwear: fw,
     colorCombinations: [pick(colorCombos), pick(colorCombos), pick(colorCombos)],
+    occasions,
   };
 }
 
