@@ -12,6 +12,14 @@ export interface FaceAnalysisResult {
   groomingTips: string[];
 }
 
+export interface OccasionOutfit {
+  occasion: string;
+  top: string;
+  bottom: string;
+  footwear: string;
+  colors: string[];
+}
+
 export interface BodyAnalysisResult {
   bodyType: BodyType;
   bodyShape: BodyShape;
@@ -19,6 +27,7 @@ export interface BodyAnalysisResult {
   bottoms: string[];
   footwear: string[];
   colorCombinations: string[][];
+  occasions: OccasionOutfit[];
 }
 
 export interface DietResult {
