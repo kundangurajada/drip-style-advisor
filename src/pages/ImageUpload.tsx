@@ -16,6 +16,20 @@ const ImageUpload = () => {
   const [bodyImage, setBodyImage] = useState<string | null>(null);
   const [analyzing, setAnalyzing] = useState(false);
   const [uploadTarget, setUploadTarget] = useState<'face' | 'body'>('face');
+  const [selectedOccasions, setSelectedOccasions] = useState<string[]>([]);
+
+  const showOccasions = feat === 'body' || feat === 'drip';
+  const occasions = [
+    { id: 'casual', label: 'Casual', icon: Coffee },
+    { id: 'formal', label: 'Formal', icon: Briefcase },
+    { id: 'party', label: 'Party', icon: PartyPopper },
+  ];
+
+  const toggleOccasion = (id: string) => {
+    setSelectedOccasions(prev =>
+      prev.includes(id) ? prev.filter(o => o !== id) : [...prev, id]
+    );
+  };
 
   const feat = feature as FeatureType;
   const g = gender as Gender;
