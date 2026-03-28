@@ -1,9 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ScanFace, Body, Salad, Flame, ArrowLeft } from 'lucide-react';
-
-// Body icon doesn't exist in lucide, use a substitute
-import { PersonStanding } from 'lucide-react';
+import { ScanFace, Salad, Flame, ArrowLeft, PersonStanding } from 'lucide-react';
 
 export type FeatureType = 'face' | 'body' | 'diet' | 'drip';
 
