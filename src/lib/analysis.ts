@@ -220,9 +220,9 @@ export function analyzeDiet(bodyType: BodyType): DietResult {
   return dietMap[bodyType];
 }
 
-export function fullAnalysis(gender: Gender): FullAnalysis {
+export function fullAnalysis(gender: Gender, selectedOccasions?: string[]): FullAnalysis {
   const face = analyzeFace(gender);
-  const body = analyzeBody(gender);
+  const body = analyzeBody(gender, selectedOccasions);
   const diet = analyzeDiet(body.bodyType);
   return { face, body, diet };
 }
