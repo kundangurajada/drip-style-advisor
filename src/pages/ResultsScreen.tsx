@@ -102,7 +102,7 @@ const ResultsScreen = () => {
         {results.body && (
           <>
             <motion.div variants={item} className="section-card">
-              <SectionTitle icon={PersonStanding} title="Body Analysis" />
+              <SectionTitle icon={PersonStanding} title="Outfit Recommendation" />
               <div className="flex gap-4 mt-3">
                 <div className="glass-card px-4 py-2 text-center flex-1">
                   <p className="text-xs text-muted-foreground">Type</p>
