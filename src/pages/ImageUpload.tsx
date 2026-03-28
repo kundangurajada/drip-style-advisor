@@ -60,7 +60,7 @@ const ImageUpload = () => {
     try {
       let result: FullAnalysis;
       if (feat === 'drip') {
-        result = await simulateAnalysis(() => fullAnalysis(g), 3500);
+        result = await simulateAnalysis(() => fullAnalysis(g, selectedOccasions), 3500);
       } else if (feat === 'face') {
         const face = await simulateAnalysis(() => analyzeFace(g), 2500);
         result = { face };
