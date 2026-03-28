@@ -55,7 +55,7 @@ const ImageUpload = () => {
       } else {
         const body = await simulateAnalysis(() => analyzeBody(g), 1500);
         const diet = await simulateAnalysis(() => analyzeDiet(body.bodyType), 1500);
-        result = { body, diet };
+        result = { diet };
       }
 
       // Store results and navigate
