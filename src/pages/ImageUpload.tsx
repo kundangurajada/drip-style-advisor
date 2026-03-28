@@ -18,7 +18,12 @@ const ImageUpload = () => {
   const [uploadTarget, setUploadTarget] = useState<'face' | 'body'>('face');
   const [selectedOccasions, setSelectedOccasions] = useState<string[]>([]);
 
+  const feat = feature as FeatureType;
+  const g = gender as Gender;
+  const needsFace = feat === 'face' || feat === 'drip';
+  const needsBody = feat === 'body' || feat === 'diet' || feat === 'drip';
   const showOccasions = feat === 'body' || feat === 'drip';
+
   const occasions = [
     { id: 'casual', label: 'Casual', icon: Coffee },
     { id: 'formal', label: 'Formal', icon: Briefcase },
@@ -30,11 +35,6 @@ const ImageUpload = () => {
       prev.includes(id) ? prev.filter(o => o !== id) : [...prev, id]
     );
   };
-
-  const feat = feature as FeatureType;
-  const g = gender as Gender;
-  const needsFace = feat === 'face' || feat === 'drip';
-  const needsBody = feat === 'body' || feat === 'diet' || feat === 'drip';
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, target: 'face' | 'body') => {
     const file = e.target.files?.[0];
