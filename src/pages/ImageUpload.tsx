@@ -49,8 +49,9 @@ const ImageUpload = () => {
   };
 
   const canSubmit = () => {
-    if (feat === 'drip') return faceImage && bodyImage;
+    if (feat === 'drip') return faceImage && bodyImage && selectedOccasions.length > 0;
     if (feat === 'face') return faceImage;
+    if (feat === 'body') return bodyImage && selectedOccasions.length > 0;
     return bodyImage;
   };
 
