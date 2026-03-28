@@ -169,7 +169,7 @@ export function analyzeFace(gender: Gender): FaceAnalysisResult {
   };
 }
 
-export function analyzeBody(gender: Gender): BodyAnalysisResult {
+export function analyzeBody(gender: Gender, selectedOccasions?: string[]): BodyAnalysisResult {
   const bt = pick(bodyTypes);
   const bs = pick(bodyShapes);
   const g = gender === 'male' ? 'male' : 'female';
@@ -177,7 +177,7 @@ export function analyzeBody(gender: Gender): BodyAnalysisResult {
   const bottoms = bottomsMap[bt][g];
   const fw = footwearMap[bt];
 
-  const occasions: OccasionOutfit[] = [
+  const allOccasions: OccasionOutfit[] = [
     {
       occasion: 'Casual',
       top: pick(tops),
@@ -201,6 +201,10 @@ export function analyzeBody(gender: Gender): BodyAnalysisResult {
     },
   ];
 
+  const filteredOccasions = selectedOccasions && selectedOccasions.length > 0
+    ? allOccasions.filter(o => selectedOccasions.includes(o.occasion.toLowerCase()))
+    : allOccasions;
+
   return {
     bodyType: bt,
     bodyShape: bs,
@@ -208,7 +212,7 @@ export function analyzeBody(gender: Gender): BodyAnalysisResult {
     bottoms,
     footwear: fw,
     colorCombinations: [pick(colorCombos), pick(colorCombos), pick(colorCombos)],
-    occasions,
+    occasions: filteredOccasions,
   };
 }
 

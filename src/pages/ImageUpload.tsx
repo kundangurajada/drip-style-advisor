@@ -65,7 +65,7 @@ const ImageUpload = () => {
         const face = await simulateAnalysis(() => analyzeFace(g), 2500);
         result = { face };
       } else if (feat === 'body') {
-        const body = await simulateAnalysis(() => analyzeBody(g), 2500);
+        const body = await simulateAnalysis(() => analyzeBody(g, selectedOccasions), 2500);
         result = { body };
       } else {
         const body = await simulateAnalysis(() => analyzeBody(g), 1500);
