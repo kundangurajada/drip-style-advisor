@@ -79,6 +79,7 @@ const ImageUpload = () => {
       sessionStorage.setItem('drip-body-image', bodyImage || '');
       sessionStorage.setItem('drip-feature', feat);
       sessionStorage.setItem('drip-gender', g);
+      sessionStorage.setItem('drip-occasions', JSON.stringify(selectedOccasions));
       navigate('/results');
     } catch {
       setAnalyzing(false);
