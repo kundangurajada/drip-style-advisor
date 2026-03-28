@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ScanFace, PersonStanding, Salad, Palette, Footprints, Shirt, Scissors, Sparkles, Share2, Bookmark } from 'lucide-react';
+import { ArrowLeft, ScanFace, PersonStanding, Salad, Palette, Footprints, Shirt, Scissors, Sparkles, Share2, Bookmark, PartyPopper, Briefcase, Coffee } from 'lucide-react';
 import type { FullAnalysis } from '@/lib/analysis';
 import { toast } from 'sonner';
 
