@@ -152,6 +152,41 @@ const ImageUpload = () => {
         )}
       </div>
 
+      {/* Occasion selector - shown after image is uploaded */}
+      {showOccasions && bodyImage && (
+        <motion.div
+          className="mt-6"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
+          <h3 className="font-semibold text-foreground mb-1">Select Occasions</h3>
+          <p className="text-sm text-muted-foreground mb-4">Choose the occasions you want outfit recommendations for</p>
+          <div className="flex gap-3">
+            {occasions.map((occ) => {
+              const selected = selectedOccasions.includes(occ.id);
+              return (
+                <motion.button
+                  key={occ.id}
+                  onClick={() => toggleOccasion(occ.id)}
+                  className={`flex-1 glass-card p-4 flex flex-col items-center gap-2 cursor-pointer transition-all duration-200 ${
+                    selected ? 'border-primary/60 bg-primary/10' : ''
+                  }`}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${
+                    selected ? 'bg-primary/20' : 'bg-secondary'
+                  }`}>
+                    {selected ? <Check className="text-primary" size={20} /> : <occ.icon className="text-muted-foreground" size={20} />}
+                  </div>
+                  <span className={`text-sm font-medium ${selected ? 'text-primary' : 'text-muted-foreground'}`}>{occ.label}</span>
+                </motion.button>
+              );
+            })}
+          </div>
+        </motion.div>
+      )}
+
       {/* Analyze button */}
       <motion.div className="mt-8" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
         <AnimatePresence mode="wait">
