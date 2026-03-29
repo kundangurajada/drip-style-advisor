@@ -81,14 +81,6 @@ const SplashScreen = () => {
           <img src={dripLogo} alt="DRIP Logo" className="w-full h-full object-cover" />
         </motion.div>
 
-        <motion.h1
-          className="font-display text-7xl font-extrabold tracking-wider gradient-text"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          DRIP
-        </motion.h1>
 
         <motion.p
           className="text-muted-foreground text-center text-sm max-w-[280px] leading-relaxed"
