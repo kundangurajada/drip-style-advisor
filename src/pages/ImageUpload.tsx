@@ -94,6 +94,11 @@ const ImageUpload = () => {
     else fileInput2Ref.current?.click();
   };
 
+  const openCamera = (target: 'face' | 'body') => {
+    if (target === 'face') cameraInputRef.current?.click();
+    else cameraInput2Ref.current?.click();
+  };
+
   return (
     <div className="min-h-screen bg-background px-6 py-8 max-w-lg mx-auto">
       <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={(e) => handleFileChange(e, 'face')} />
