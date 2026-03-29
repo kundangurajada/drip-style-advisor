@@ -74,11 +74,11 @@ const SplashScreen = () => {
         transition={{ duration: 1, delay: 0.3 }}
       >
         <motion.div
-          className="flex items-center justify-center w-24 h-24 rounded-3xl glass-card"
-          animate={{ rotate: [0, 5, -5, 0] }}
+          className="w-32 h-32 rounded-3xl overflow-hidden shadow-lg shadow-primary/20"
+          animate={{ rotate: [0, 3, -3, 0] }}
           transition={{ duration: 4, repeat: Infinity }}
         >
-          <Sparkles className="text-primary" size={44} />
+          <img src={dripLogo} alt="DRIP Logo" className="w-full h-full object-cover" />
         </motion.div>
 
         <motion.h1
