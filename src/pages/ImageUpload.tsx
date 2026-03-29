@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ImagePlus, Camera, ArrowLeft, X, Loader2, ScanFace, PersonStanding, PartyPopper, Briefcase, Coffee, Check } from 'lucide-react';
+import { ImagePlus, ArrowLeft, X, Loader2, ScanFace, PersonStanding, PartyPopper, Briefcase, Coffee, Check } from 'lucide-react';
 import type { FeatureType } from './FeaturesMenu';
 import type { Gender, FullAnalysis } from '@/lib/analysis';
 import { analyzeFace, analyzeBody, analyzeDiet, fullAnalysis, simulateAnalysis } from '@/lib/analysis';
@@ -11,8 +11,6 @@ const ImageUpload = () => {
   const navigate = useNavigate();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const fileInput2Ref = useRef<HTMLInputElement>(null);
-  const cameraInputRef = useRef<HTMLInputElement>(null);
-  const cameraInput2Ref = useRef<HTMLInputElement>(null);
 
   const [faceImage, setFaceImage] = useState<string | null>(null);
   const [bodyImage, setBodyImage] = useState<string | null>(null);
@@ -94,17 +92,11 @@ const ImageUpload = () => {
     else fileInput2Ref.current?.click();
   };
 
-  const openCamera = (target: 'face' | 'body') => {
-    if (target === 'face') cameraInputRef.current?.click();
-    else cameraInput2Ref.current?.click();
-  };
 
   return (
     <div className="min-h-screen bg-background px-6 py-8 max-w-lg mx-auto">
       <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={(e) => handleFileChange(e, 'face')} />
       <input ref={fileInput2Ref} type="file" accept="image/*" className="hidden" onChange={(e) => handleFileChange(e, 'body')} />
-      <input ref={cameraInputRef} type="file" accept="image/*" capture="user" className="hidden" onChange={(e) => handleFileChange(e, 'face')} />
-      <input ref={cameraInput2Ref} type="file" accept="image/*" capture="environment" className="hidden" onChange={(e) => handleFileChange(e, 'body')} />
 
       <motion.button
         onClick={() => navigate(-1)}
@@ -143,7 +135,7 @@ const ImageUpload = () => {
             icon={ScanFace}
             image={faceImage}
             onUpload={() => openUpload('face')}
-            onCamera={() => openCamera('face')}
+            
             onClear={() => setFaceImage(null)}
             delay={0.2}
           />
@@ -156,7 +148,7 @@ const ImageUpload = () => {
             icon={PersonStanding}
             image={bodyImage}
             onUpload={() => openUpload('body')}
-            onCamera={() => openCamera('body')}
+            
             onClear={() => setBodyImage(null)}
             delay={0.3}
           />
@@ -243,7 +235,6 @@ function UploadCard({
   icon: Icon,
   image,
   onUpload,
-  onCamera,
   onClear,
   delay,
 }: {
@@ -251,7 +242,6 @@ function UploadCard({
   icon: React.ElementType;
   image: string | null;
   onUpload: () => void;
-  onCamera: () => void;
   onClear: () => void;
   delay: number;
 }) {
@@ -274,21 +264,21 @@ function UploadCard({
           <div className="absolute bottom-3 left-3 glass-card px-3 py-1 text-xs text-foreground">{label} ✓</div>
         </div>
       ) : (
-        <div className="w-full p-10 flex flex-col items-center gap-3 text-muted-foreground">
+        <button
+          onClick={onUpload}
+          className="w-full p-10 flex flex-col items-center gap-3 text-muted-foreground hover:text-primary transition-colors cursor-pointer"
+        >
           <div className="w-16 h-16 rounded-2xl border-2 border-dashed border-border flex items-center justify-center">
             <Icon size={28} />
           </div>
           <span className="font-medium">{label}</span>
           <div className="flex gap-4 text-xs">
-            <button onClick={onUpload} className="flex items-center gap-1 hover:text-primary transition-colors cursor-pointer">
-              <ImagePlus size={14} /> Gallery
-            </button>
-            <button onClick={onCamera} className="flex items-center gap-1 hover:text-primary transition-colors cursor-pointer">
-              <Camera size={14} /> Camera
-            </button>
+            <span className="flex items-center gap-1">
+              <ImagePlus size={14} /> Upload Photo
+            </span>
           </div>
           <span className="text-xs text-destructive/70 mt-1">⚠ No group photo</span>
-        </div>
+        </button>
       )}
     </motion.div>
   );
