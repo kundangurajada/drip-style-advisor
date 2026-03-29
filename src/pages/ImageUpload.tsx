@@ -143,6 +143,7 @@ const ImageUpload = () => {
             icon={ScanFace}
             image={faceImage}
             onUpload={() => openUpload('face')}
+            onCamera={() => openCamera('face')}
             onClear={() => setFaceImage(null)}
             delay={0.2}
           />
