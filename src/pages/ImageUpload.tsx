@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ImagePlus, Camera, ArrowLeft, X, Loader2, ScanFace, PersonStanding, PartyPopper, Briefcase, Coffee, Check } from 'lucide-react';
+import { ImagePlus, ArrowLeft, X, Loader2, ScanFace, PersonStanding, PartyPopper, Briefcase, Coffee, Check } from 'lucide-react';
 import type { FeatureType } from './FeaturesMenu';
 import type { Gender, FullAnalysis } from '@/lib/analysis';
 import { analyzeFace, analyzeBody, analyzeDiet, fullAnalysis, simulateAnalysis } from '@/lib/analysis';
