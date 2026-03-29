@@ -98,6 +98,8 @@ const ImageUpload = () => {
     <div className="min-h-screen bg-background px-6 py-8 max-w-lg mx-auto">
       <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={(e) => handleFileChange(e, 'face')} />
       <input ref={fileInput2Ref} type="file" accept="image/*" className="hidden" onChange={(e) => handleFileChange(e, 'body')} />
+      <input ref={cameraInputRef} type="file" accept="image/*" capture="user" className="hidden" onChange={(e) => handleFileChange(e, 'face')} />
+      <input ref={cameraInput2Ref} type="file" accept="image/*" capture="environment" className="hidden" onChange={(e) => handleFileChange(e, 'body')} />
 
       <motion.button
         onClick={() => navigate(-1)}
