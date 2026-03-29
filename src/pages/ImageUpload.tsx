@@ -11,6 +11,8 @@ const ImageUpload = () => {
   const navigate = useNavigate();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const fileInput2Ref = useRef<HTMLInputElement>(null);
+  const cameraInputRef = useRef<HTMLInputElement>(null);
+  const cameraInput2Ref = useRef<HTMLInputElement>(null);
 
   const [faceImage, setFaceImage] = useState<string | null>(null);
   const [bodyImage, setBodyImage] = useState<string | null>(null);
