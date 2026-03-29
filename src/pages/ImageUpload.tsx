@@ -271,10 +271,13 @@ function UploadCard({
           <span className="font-medium">{label}</span>
           <div className="flex gap-4 text-xs">
             <span className="flex items-center gap-1">
-              <ImagePlus size={14} /> Upload Photo
+              <ImagePlus size={14} /> Gallery
+            </span>
+            <span className="flex items-center gap-1">
+              <Camera size={14} /> Camera
             </span>
           </div>
-          <span className="text-xs text-destructive/70 mt-1">⚠ No group photos</span>
+          <span className="text-xs text-destructive/70 mt-1">⚠ No group photo</span>
         </button>
       )}
     </motion.div>
