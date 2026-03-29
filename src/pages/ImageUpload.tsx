@@ -148,7 +148,7 @@ const ImageUpload = () => {
             icon={PersonStanding}
             image={bodyImage}
             onUpload={() => openUpload('body')}
-            onCamera={() => openCamera('body')}
+            
             onClear={() => setBodyImage(null)}
             delay={0.3}
           />
