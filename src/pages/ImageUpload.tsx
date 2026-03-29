@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Camera, ImagePlus, ArrowLeft, X, Loader2, ScanFace, PersonStanding, PartyPopper, Briefcase, Coffee, Check } from 'lucide-react';
+import { ImagePlus, ArrowLeft, X, Loader2, ScanFace, PersonStanding, PartyPopper, Briefcase, Coffee, Check } from 'lucide-react';
 import type { FeatureType } from './FeaturesMenu';
 import type { Gender, FullAnalysis } from '@/lib/analysis';
 import { analyzeFace, analyzeBody, analyzeDiet, fullAnalysis, simulateAnalysis } from '@/lib/analysis';
@@ -271,12 +271,10 @@ function UploadCard({
           <span className="font-medium">{label}</span>
           <div className="flex gap-4 text-xs">
             <span className="flex items-center gap-1">
-              <Camera size={14} /> Camera
-            </span>
-            <span className="flex items-center gap-1">
-              <ImagePlus size={14} /> Gallery
+              <ImagePlus size={14} /> Upload Photo
             </span>
           </div>
+          <span className="text-xs text-destructive/70 mt-1">⚠ No group photos</span>
         </button>
       )}
     </motion.div>
