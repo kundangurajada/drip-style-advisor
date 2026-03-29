@@ -235,7 +235,6 @@ function UploadCard({
   icon: Icon,
   image,
   onUpload,
-  onCamera,
   onClear,
   delay,
 }: {
@@ -243,7 +242,6 @@ function UploadCard({
   icon: React.ElementType;
   image: string | null;
   onUpload: () => void;
-  onCamera: () => void;
   onClear: () => void;
   delay: number;
 }) {
@@ -266,21 +264,21 @@ function UploadCard({
           <div className="absolute bottom-3 left-3 glass-card px-3 py-1 text-xs text-foreground">{label} ✓</div>
         </div>
       ) : (
-        <div className="w-full p-10 flex flex-col items-center gap-3 text-muted-foreground">
+        <button
+          onClick={onUpload}
+          className="w-full p-10 flex flex-col items-center gap-3 text-muted-foreground hover:text-primary transition-colors cursor-pointer"
+        >
           <div className="w-16 h-16 rounded-2xl border-2 border-dashed border-border flex items-center justify-center">
             <Icon size={28} />
           </div>
           <span className="font-medium">{label}</span>
           <div className="flex gap-4 text-xs">
-            <button onClick={onUpload} className="flex items-center gap-1 hover:text-primary transition-colors cursor-pointer">
-              <ImagePlus size={14} /> Gallery
-            </button>
-            <button onClick={onCamera} className="flex items-center gap-1 hover:text-primary transition-colors cursor-pointer">
-              <Camera size={14} /> Camera
-            </button>
+            <span className="flex items-center gap-1">
+              <ImagePlus size={14} /> Upload Photo
+            </span>
           </div>
           <span className="text-xs text-destructive/70 mt-1">⚠ No group photo</span>
-        </div>
+        </button>
       )}
     </motion.div>
   );
