@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Scissors, Salad, Shirt, Sparkles, Crown, Gem } from 'lucide-react';
+import dripLogo from '@/assets/drip-logo.jpg';
 
 const icons = [
   { Icon: Scissors, x: '15%', y: '20%', delay: 0 },
